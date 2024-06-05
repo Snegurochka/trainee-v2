@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    font-family: Inter, sans-serif;
+    font-size: var(--font-size-m);
+}
+
+:root {
+    --font-size-s: 12px;
+    --font-size-m: 16px;
+    --font-size-l: 24px;
+    --gap: 14px;
+    --m-s: 4px;
+    --m-m: 14px;
+    --p-m: 14px;
+    --maxWidth: 1280px; 
+
+    --overlay-color: rgba(0 0 0/ 60%);
+    --white: #fff;
+    --lightGrey: #eee;
+}
+
+.app {
+    background-color: var(--bg-color);
+    color: var(--primary-text-color);
+    min-height: 100vh;
+}
+
+:root {
+    --bg-color: rgb(255, 244, 201);
+    --primary-text-color: rgb(61, 60, 60);
+    --secondary-text-color: rgb(95, 95, 95);
+    --primary-color: rgb(3, 123, 121);
+    --secondary-color: rgb(138, 210, 209);
+}
+
+.app_dark_theme {
+    --bg-color: rgb(63, 62, 62);
+    --primary-text-color: rgb(222, 222, 222);
+    --secondary-text-color: rgb(170, 169, 169);
+    --primary-color: rgb(6, 164, 162);
+    --secondary-color: rgb(103, 187, 186);
+}
