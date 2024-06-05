@@ -1,6 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
-import { ThemeDecorator } from "../../services/storybook/ThemeDecorator";
 import { Box } from "./Box";
 
 const meta = {
@@ -11,7 +9,7 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: {},
-  args: {  },
+  args: {},
 } satisfies Meta<typeof Box>;
 
 export default meta;
@@ -19,6 +17,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Base: Story = {
   args: {
-    children: "Test"
+    children: "Test",
   },
 };
