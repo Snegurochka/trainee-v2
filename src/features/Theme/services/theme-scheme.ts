@@ -2,6 +2,10 @@ const PRIMARY_COLOR_LIGHT = "rgb(3, 123, 121)";
 const SECONDARY_COLOR_LIGHT = "rgb(3, 123, 121)";
 const TEXT_LIGHT = "rgb(61, 60, 60)";
 
+const PRIMARY_COLOR_DARK = "rgb(6, 164, 162)";
+const SECONDARY_COLOR_DARK = "rgb(103, 187, 186)";
+const TEXT_DARK = "rgb(222, 222, 222)";
+
 export const lightTheme = {
   bg: "rgb(236 236 236)",
   text: TEXT_LIGHT,
@@ -31,12 +35,9 @@ export const lightTheme = {
         border: "none",
       },
     },
+    progress: TEXT_DARK,
   },
 };
-
-const PRIMARY_COLOR_DARK = "rgb(6, 164, 162)";
-const SECONDARY_COLOR_DARK = "rgb(103, 187, 186)";
-const TEXT_DARK = "rgb(222, 222, 222)";
 
 export const darkTheme = {
   bg: "rgb(63, 62, 62)",
@@ -44,7 +45,7 @@ export const darkTheme = {
   primary: PRIMARY_COLOR_DARK,
   secondary: SECONDARY_COLOR_DARK,
   ui: {
-    switch: "rgb(222, 222, 222)",
+    switch: TEXT_DARK,
     buttons: {
       primary: {
         background: PRIMARY_COLOR_DARK,

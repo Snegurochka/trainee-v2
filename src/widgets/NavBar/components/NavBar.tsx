@@ -10,6 +10,7 @@ import {
 import { FlexBox } from "../../../shared/UI/Box/Box";
 import { AppNavLink } from "../../../shared/UI/Links/Links";
 import { Button } from "../../../shared/UI/Button/Button";
+import { AuthNavButton } from "../../../features/Auth/components/AuthNavButton";
 
 export const NAV_BAR_HEIGHT = "74";
 
@@ -39,13 +40,7 @@ export const NavBar = ({ children }: { children?: ReactNode }) => {
           <AppNavLink to={QUIZ_PATH}>Quiz</AppNavLink>
           <AppNavLink to={ABOUT_PATH}>How it works?</AppNavLink>
         </FlexBox>
-        <Button
-          onClick={() => {
-            console.log("dddd");
-          }}
-        >
-          Sign Up
-        </Button>
+        <AuthNavButton />
         {children}
       </NavInner>
     </NavWrapper>

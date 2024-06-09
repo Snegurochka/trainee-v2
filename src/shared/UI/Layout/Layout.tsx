@@ -13,22 +13,12 @@ const Wrapper = styled.main`
   min-height: 100vh;
 `;
 
-const Content = styled.section`
-  flex-grow: 1;
-  padding: 24px;
-`;
-
 export const Layout = () => {
   return (
     <Wrapper>
       <Suspense fallback={<PageLoader />}>
         <NavBar />
-        <FlexBox>
-          <SideBar />
-          <Content>
-            <Outlet />
-          </Content>
-        </FlexBox>
+        <Outlet />
       </Suspense>
     </Wrapper>
   );
