@@ -1,6 +1,8 @@
+import { Quiz } from "../../entities/Quiz"
+
 const QuizPage = () => {
   return (
-    <div>QuizPage</div>
+    <Quiz />
   )
 }
 
