@@ -2564,7 +2564,7 @@ const quizReact: TQuiz[] = [
     const onClick = useEvent((text)=>{ // action })`,
     category: REACT,
     level: 2,
-    comment: "https://youtu.be/XOSgHVzHEV4?si=-uUuVmNblTwBYyiQ",
+    comment: "https://youtu.be/XOSgHVzHEV4?si=-uUuVmNblTwBYyiQ[САМЫЙ ПОЛЕЗНЫЙ хук для ОПТИМИЗАЦИЙ в React _ React Hooks]",
   },
   {
     id: 236,

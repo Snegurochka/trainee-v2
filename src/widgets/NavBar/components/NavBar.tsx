@@ -9,7 +9,6 @@ import {
 } from "../../../app/services/route/route-constants";
 import { FlexBox } from "../../../shared/UI/Box/Box";
 import { AppNavLink } from "../../../shared/UI/Links/Links";
-import { Button } from "../../../shared/UI/Button/Button";
 import { AuthNavButton } from "../../../features/Auth/components/AuthNavButton";
 
 export const NAV_BAR_HEIGHT = "74";
