@@ -1,20 +1,25 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
 
-const ButtonStyled = styled.button<ButtonProps>`
+interface IButtonStyleProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  $isLoaded?: boolean;
+  $buttonType?: (typeof buttonTypes)[number];
+}
+
+const ButtonStyled = styled.button<IButtonStyleProps>`
   font-size: 1em;
-  cursor: ${({ isLoaded }) => (isLoaded ? "wait" : "pointer")};
-  margin: 0.5em;
-  border-radius: 25px;
-  padding: 0.75em 1.5em;
-  ${(p) => {
-    const buttonStyle = p.theme.ui.buttons[p.buttonType];
-    return `
-      color: ${buttonStyle.color};
-      background: ${buttonStyle.background};
-      border: ${buttonStyle.border}
-    `;
-  }};
+  cursor: ${({ $isLoaded }) => ($isLoaded ? "wait" : "pointer")};
+  color: ${({ theme, $buttonType }) => theme.ui.buttons[$buttonType].color};
+  background: ${({ theme, $buttonType }) =>
+    theme.ui.buttons[$buttonType].background};
+  border: ${({ theme, $buttonType }) => theme.ui.buttons[$buttonType].border};
+  ${({ $buttonType }) =>
+    $buttonType !== "ghost" &&
+    `
+    margin: 0.5em 0; 
+    border-radius: 25px; 
+    padding: 0.75em 1.5em;
+    `}
 
   &:hover {
     opacity: 0.8;
@@ -42,9 +47,13 @@ export const Button = ({
 }: ButtonProps) => {
   const { isLoaded, isDisabled } = rest;
   return (
-    <ButtonStyled disabled={Boolean(isDisabled)} buttonType={buttonType} {...rest}>
+    <ButtonStyled
+      disabled={Boolean(isDisabled)}
+      $buttonType={buttonType}
+      $isLoaded={isLoaded}
+      {...rest}
+    >
       {isLoaded ? "Loading" : children}
     </ButtonStyled>
   );
 };
-

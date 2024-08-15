@@ -1,40 +1,43 @@
-import { useState, FormEvent } from "react";
-
-import { useLogin } from "../services/hooks/use-login-hook";
+import { useForm } from "react-hook-form";
 import { Button } from "../../../shared/UI/Button/Button";
 import { Input } from "../../../shared/UI/Form/Input";
+import { useAppDispatch } from "../../../shared/services/hooks/redux";
+import { setApiAuth } from "../services/auth-api";
+import { Card } from "../../../shared/UI/Card/Card";
+import { useTranslation } from "react-i18next";
+
+export type TAuthForm = {
+  email: string;
+  password: string;
+};
 
 export const AuthForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { logIn } = useLogin();
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<TAuthForm>();
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    logIn(email, password);
+  const submitHandler = (data: TAuthForm) => {
+    dispatch(setApiAuth(data));
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Login</h1>
-      <p>
+    <Card $m={3} title={t("Login")}>
+      <form onSubmit={handleSubmit(submitHandler)}>
+        <Input {...register("email", { required: true })} label="Email" />
+        {errors.email && <p>This field is required</p>}
         <Input
-          type="text"
-          placeholder="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </p>
-      <p>
-        <Input
+          {...register("password", { required: true })}
+          label="Password"
           type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
         />
-      </p>
-      <Button type="submit">
-        Login
-      </Button>
-    </form>
+        {errors.password && <p>This field is required</p>}
+        <Button disabled={isSubmitting} type="submit">
+          {isSubmitting ? "Loading..." : "Login"}
+        </Button>
+      </form>
+    </Card>
   );
 };

@@ -1,5 +1,4 @@
-import { ReactNode } from "react";
-import styled from "styled-components";
+import { memo } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -9,39 +8,18 @@ import {
 } from "../../../app/services/route/route-constants";
 import { FlexBox } from "../../../shared/UI/Box/Box";
 import { AppNavLink } from "../../../shared/UI/Links/Links";
-import { AuthNavButton } from "../../../features/Auth/components/AuthNavButton";
+import { useAppSelector } from "../../../shared/services/hooks/redux";
+import { selectIsAuth } from "../../../features/Auth/services/auth-selectors";
 
-export const NAV_BAR_HEIGHT = "74";
-
-const NavWrapper = styled.nav`
-  width: 100%;
-  height: ${NAV_BAR_HEIGHT}px;
-`;
-
-const NavInner = styled(FlexBox)`
-  max-width: 930px;
-  margin: 0 auto;
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 1rem;
-`;
-
-export const NavBar = ({ children }: { children?: ReactNode }) => {
+export const NavBar = memo(() => {
   const { t } = useTranslation();
+  const isAuth = useAppSelector(selectIsAuth);
+
   return (
-    <NavWrapper>
-      <NavInner>
-        <FlexBox gap={2}>
-          <AppNavLink to={HOME_PATH}>{t("Home")}</AppNavLink>
-          <AppNavLink to={QUIZ_PATH}>Quiz</AppNavLink>
-          <AppNavLink to={ABOUT_PATH}>How it works?</AppNavLink>
-        </FlexBox>
-        <AuthNavButton />
-        {children}
-      </NavInner>
-    </NavWrapper>
+    <FlexBox gap={2}>
+      <AppNavLink to={HOME_PATH}>{t("Home")}</AppNavLink>
+      {isAuth && <AppNavLink to={QUIZ_PATH}>{t("Quiz")}</AppNavLink>}
+      <AppNavLink to={ABOUT_PATH}>{t("How it works?")}</AppNavLink>
+    </FlexBox>
   );
-};
+});

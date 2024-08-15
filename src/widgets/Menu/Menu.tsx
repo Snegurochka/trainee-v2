@@ -1,15 +1,24 @@
+import styled from "styled-components";
 import { menuList } from "./mock-menu";
 import { Stack } from "../../shared/UI/Box/Box";
-import { AppNavLink } from "../../shared/UI/Links/Links";
+import { MenuItem } from "./MenuItem";
+import { memo } from "react";
 
-export const Menu = ({ isCollapsed }: { isCollapsed: boolean }) => {
+const Wrapper = styled(Stack)`
+  gap: 12px;
+  color: ${(p) => p.theme.text_invert};
+`;
+
+export const Menu = memo(({ isCollapsed }: { isCollapsed: boolean }) => {
   return (
-    <Stack>
+    <Wrapper>
       {menuList.map((navItem) => (
-        <AppNavLink key={navItem.id} to={navItem.path}>
-          {isCollapsed ? "ixon" : navItem.name}
-        </AppNavLink>
+        <MenuItem
+          key={navItem.path}
+          navItem={navItem}
+          isCollapsed={isCollapsed}
+        />
       ))}
-    </Stack>
+    </Wrapper>
   );
-};
+});

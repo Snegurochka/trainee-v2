@@ -1,12 +1,18 @@
 import { styled, css } from "styled-components";
+import type { TBoxProps } from "../ui-types";
 
 const SHIFT = 8; 
 
-export const Box = styled.div<{ gap?: number }>`
+export const Box = styled.div<TBoxProps>`
   ${(props) =>
     props.gap &&
     css`
       gap: ${props.gap * SHIFT}px;
+    `}
+  ${(props) =>
+    props.$m &&
+    css`
+      margin: ${props.$m * SHIFT}px;
     `}
 `;
 
