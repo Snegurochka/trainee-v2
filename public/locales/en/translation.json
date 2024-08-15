@@ -1,4 +1,12 @@
 {
   "language": "Ru",
-  "Home": "Home"
+  "Home": "Home",
+  "Account Page": "Account Page",
+  "Name": "Name",
+  "Login": "Login",
+  "Logout": "Logout",
+  "Account": "Account",
+  "Quiz": "Quiz",
+  "Questions": "Questions",
+  "How it works?": "How it works?"
 }

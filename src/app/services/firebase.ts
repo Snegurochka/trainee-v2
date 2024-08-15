@@ -18,6 +18,6 @@ export const UsersDB = "users";
 export const ChallengesDB = "challenges";
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 
 export const db = getFirestore(app);

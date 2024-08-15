@@ -348,7 +348,14 @@ const quizJs: TQuiz[] = [
     // if JS
     const uniqueStuff = [...new Set(stuff)];
     // if TS
-    const uniqueStuff = Array.from(new Set(stuff));`,
+    const uniqueStuff = Array.from(new Set(stuff));
+    // if you cannot use Set
+    const uniqueStuff = stuff.reduce((acc, el) => {
+      if (!acc[el]) {
+        return { ...acc, [el]: el };
+      }
+      return acc;
+    }, {})`,
     category: "JS",
     level: 1,
   },
@@ -976,16 +983,6 @@ const quizJs: TQuiz[] = [
   },
   {
     id: 80,
-    question: `Create a counter`,
-    answer: `const myCounter = (initValue) => {
-      let counter = initValue;
-      return () => counter + 1;
-    }`,
-    category: "JS",
-    level: 2,
-  },
-  {
-    id: 80,
     question: `Create own filter function, use reduce`,
     answer: `const filter = <T>(arr: T[], cb: (item: T) => boolean): T[] => {
       return arr.reduce((acc, item) => {
@@ -1093,17 +1090,6 @@ const quizJs: TQuiz[] = [
   },
   {
     id: 85,
-    question: `How to get price with data attributes`,
-    answer: `
-    <div id="product" data-price="45"></div>
-    // JS
-    const el = document.getElementById("product");
-    const price = el.dataset.price;`,
-    category: "JS",
-    level: 2,
-  },
-  {
-    id: 85,
     question: `Create a debounce function, give an using example`,
     answer: `// debounce function should return a function!
     const debounce = (cb, delay = 1000) => {
@@ -1117,7 +1103,7 @@ const quizJs: TQuiz[] = [
     const updateText = debounce((text) => { console.log(text)}); // it returns a function
     const input = document.getElementById("myInput");
     input.addEventListener("input", (e) => {updateText(e.target.value)}) // so we can call it and pass arguments
-    `, 
+    `,
     category: "JS",
     level: 2,
     comment:
@@ -1137,6 +1123,7 @@ const quizJs: TQuiz[] = [
     console.log(6);
     `,
     answer: `
+    // When we call new Promise(callback), the callback function will be executed immediately.
     1 - 2 - 6 - 4 - 5`,
     category: "JS",
     level: 2,
@@ -1158,6 +1145,88 @@ const quizJs: TQuiz[] = [
     level: 2,
     comment:
       "https://www.youtube.com/watch?v=cjIswDCKgu0&ab_channel=WebDevSimplified",
+  },
+  {
+    id: 88,
+    question: `Create a counter`,
+    answer: `const myCounter = (initValue) => {
+      let counter = initValue;
+      return () => counter + 1;
+    }`,
+    category: "JS",
+    level: 2,
+  },
+  {
+    id: 89,
+    question: `How to get price with data attributes`,
+    answer: `
+    <div id="product" data-price="45"></div>
+    // JS
+    const el = document.getElementById("product");
+    const price = el.dataset.price;`,
+    category: "JS",
+    level: 2,
+  },
+  {
+    id: 90,
+    question: `We have a string "Hello my name is John". Make it reversed: "olleH ym eman si noJ"`,
+    answer: `
+    const str = "Hello my name is John";
+    const words = str.split(" ");
+    const reversed = words.map((word) => word.split("").reverse().join("")).join(" ");
+    `,
+    category: "JS",
+    level: 2,
+  },
+  {
+    id: 91,
+    question: `Create a function with memoization
+    const memo = (fn) => {}
+    const memoized = memo((a) => a + 1);
+    memoized(1); // 2
+    `,
+    answer: `
+    const memo = (fn) => {
+      const cache = new Map();
+      return (...args) => {
+        const key = JSON.stringify(args);
+        if (cache.has(key)) {
+          return cache.get(key);
+        }
+        const result = fn(...args);
+        cache.set(key, result);
+        return result;
+      }
+    }
+      }
+    }`,
+    category: "JS",
+    level: 2,
+  },
+  {
+    id: 92,
+    question: `Create own some methods in JS`,
+    answer: `const some = (arr, fn) => {
+      for (let i = 0; i < arr.length; i++) {
+        if (fn(arr[i])) {
+          return true;
+        }
+      }
+      return false;
+    }`,
+    category: "JS",
+    level: 2,
+  },
+  {
+    id: 93,
+    question: `We have an object Users = {'Alex':4, 'Ann': 2, 'Max': 8}. How to sort it by value?`,
+    answer: `
+    const users = {'Alex':4, 'Ann': 2, 'Max': 8};
+    const sorted = Object.entries(users).sort((a, b) => a[1] - b[1]);
+    const sortedUsers = Object.fromEntries(sorted);
+    `,
+    category: "JS",
+    level: 2,
   },
 ];
 
@@ -1715,14 +1784,6 @@ const quizTs: TQuiz[] = [
   },
   {
     id: 145,
-    question: `const myObj:any = {a: 3, b: 2} \n
-    Create a type for myObj with Utility types.`,
-    answer: `const myObj: Record<string, number> = {...}`,
-    category: "TS",
-    level: 2,
-  },
-  {
-    id: 145,
     question: `type TPages = {
       [key:string] : TPageInfo
     } \n
@@ -1806,7 +1867,7 @@ const quizTs: TQuiz[] = [
     level: 2,
   },
   {
-    id: 153,
+    id: 154,
     question: `How to improve this code:
     type ErrorData = {
       error: string | number;
@@ -1830,6 +1891,14 @@ const quizTs: TQuiz[] = [
         status: 500,
       }
     } satisfies ErrorData;`,
+    category: "TS",
+    level: 2,
+  },
+  {
+    id: 155,
+    question: `const myObj:any = {a: 3, b: 2} \n
+    Create a type for myObj with Utility types.`,
+    answer: `const myObj: Record<string, number> = {...}`,
     category: "TS",
     level: 2,
   },
@@ -2118,37 +2187,6 @@ const quizReact: TQuiz[] = [
       yield takeLatest(DECREASE_COUNT, workerCounterSaga);
     }
     `,
-    category: REACT,
-    level: 3,
-  },
-  {
-    id: 220,
-    question: `Create a module "latestNews" \n
-    it should contain:
-    - a button component, that request latest news,
-    - action creator file with the actions: getLatestNews and setLatestNews,
-    - a saga file, that make request and store information`,
-    answer: `// a button component
-    const handleGetNews = () => {
-      dispatch(getLatestNews());
-    }
-    <button onclick={handleGetNews} />
-    // AC file
-    export const getLatestNews = () => ({
-      type: GET_LATEST_NEWS
-    })
-    export const setLatestNews = (payload) => ({
-      type: SET_LATEST_NEWS,
-      payload
-    })
-    // Saga
-    function* workerNewsSaga(){
-      const news = yield call(fetchLatestNews);
-      put(setLatestNews(news));
-    }
-    function* watcherNewsSaga(){
-      yield takeLatest(GET_LATEST_NEWS, workerNewsSaga);
-    }`,
     category: REACT,
     level: 3,
   },
@@ -2564,7 +2602,8 @@ const quizReact: TQuiz[] = [
     const onClick = useEvent((text)=>{ // action })`,
     category: REACT,
     level: 2,
-    comment: "https://youtu.be/XOSgHVzHEV4?si=-uUuVmNblTwBYyiQ[САМЫЙ ПОЛЕЗНЫЙ хук для ОПТИМИЗАЦИЙ в React _ React Hooks]",
+    comment:
+      "https://youtu.be/XOSgHVzHEV4?si=-uUuVmNblTwBYyiQ[САМЫЙ ПОЛЕЗНЫЙ хук для ОПТИМИЗАЦИЙ в React _ React Hooks]",
   },
   {
     id: 236,
@@ -2814,14 +2853,6 @@ const quizReact: TQuiz[] = [
     level: 2,
   },
   {
-    id: 246,
-    question: `How to defer loading the React component?`,
-    answer: `export const CompAsync = lazy(() => import("./Comp"));
-    and add <Suspense fallback={<Loading />}>...routes</Suspense>`,
-    category: REACT,
-    level: 2,
-  },
-  {
     id: 247,
     question: `Create an "Save money" App. 
     It should have balance, input(amount) and 2 buttons (save X$ and remove x$). 
@@ -2860,42 +2891,7 @@ const quizReact: TQuiz[] = [
     `,
     category: REACT,
     level: 2,
-    comment: "https://youtu.be/ldgnmiPIftw?si=cSWcqCfCeCqAYSTl"
-  },
-  {
-    id: 248,
-    question: `Create a slice and a thunk for Redux Toolkit. It should fetch and store posts.`,
-    answer: `export const fetchPosts = createAsyncThunk('posts/fetchPosts', () => {
-      try {
-        const response = await api.fetchPosts('url');
-        return response.data;
-      } catch (e) {
-        return e.message;
-      }
-    })
-    const postsSlice = createSlice({
-      name: 'posts',
-      initialState: {
-        posts: [],
-        isLoading: false,
-      },
-      reducers: {},
-      extraReducers(builder) {
-        builder.addCase(
-          fetchPosts.pending, (st, action)=>{
-            st.isLoading = true;
-          }
-        )
-        .addCase(
-          fetchPosts.fulfilled, (st, action)=> {
-            st.isLoading = false;
-          } 
-        )
-      }
-    })
-    `,
-    category: REACT,
-    level: 2,
+    comment: "https://youtu.be/ldgnmiPIftw?si=cSWcqCfCeCqAYSTl",
   },
   {
     id: 248,
@@ -3530,6 +3526,162 @@ const quizReact: TQuiz[] = [
     category: REACT,
     level: 2,
   },
+  {
+    id: 265,
+    question: `How to pass custom data to thunk in Redux Toolkit? For example: 
+    Add navigation to thunk.`,
+    answer: `export const store = configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+      thunk: {
+        extraArgument: {
+          navigate: () => {}, // for example
+        },
+      },
+    }),
+    });
+    // in thunk
+    const thunk = createAsyncThunk(
+      "user/fetchUser",
+      async (_, thunkAPI) => {
+        const { navigate } = thunkAPI.extra;
+        navigate("/login");
+      }
+    )`,
+    category: REACT,
+    level: 2,
+  },
+  {
+    id: 266,
+    question: `Add a selector that returns the sum of user points: 
+    state.user.points = [12, 34, 56, 78]`,
+    answer: `// use create selector, because the selectors runs on every state change
+    const selectPoints = createSelector(
+      (state: RootState) => state.user.points,
+      points => points.reduce((a, b) => a + b, 0)
+    )`,
+    category: REACT,
+    level: 2,
+  },
+  {
+    id: 267,
+    question: `Create a module "latestNews" \n
+    it should contain:
+    - a button component, that request latest news,
+    - action creator file with the actions: getLatestNews and setLatestNews,
+    - a saga file, that make request and store information`,
+    answer: `// a button component
+    const handleGetNews = () => {
+      dispatch(getLatestNews());
+    }
+    <button onclick={handleGetNews} />
+    // AC file
+    export const getLatestNews = () => ({
+      type: GET_LATEST_NEWS
+    })
+    export const setLatestNews = (payload) => ({
+      type: SET_LATEST_NEWS,
+      payload
+    })
+    // Saga
+    function* workerNewsSaga(){
+      const news = yield call(fetchLatestNews);
+      put(setLatestNews(news));
+    }
+    function* watcherNewsSaga(){
+      yield takeLatest(GET_LATEST_NEWS, workerNewsSaga);
+    }`,
+    category: REACT,
+    level: 3,
+  },
+  {
+    id: 268,
+    question: `How to defer loading the React component?`,
+    answer: `export const CompAsync = lazy(() => import("./Comp"));
+    and add <Suspense fallback={<Loading />}>...routes</Suspense>`,
+    category: REACT,
+    level: 2,
+  },
+  {
+    id: 269,
+    question: `Create a slice and a thunk for Redux Toolkit. It should fetch and store posts.`,
+    answer: `export const fetchPosts = createAsyncThunk('posts/fetchPosts', () => {
+      try {
+        const response = await api.fetchPosts('url');
+        return response.data;
+      } catch (e) {
+        return e.message;
+      }
+    })
+    const postsSlice = createSlice({
+      name: 'posts',
+      initialState: {
+        posts: [],
+        isLoading: false,
+      },
+      reducers: {},
+      extraReducers(builder) {
+        builder.addCase(
+          fetchPosts.pending, (st, action)=>{
+            st.isLoading = true;
+          }
+        )
+        .addCase(
+          fetchPosts.fulfilled, (st, action)=> {
+            st.isLoading = false;
+          } 
+        )
+      }
+    })
+    `,
+    category: REACT,
+    level: 2,
+  },
+  {
+    id: 270,
+    question: `Find and fix the bug:
+    
+    export default function Test() {
+    const [list, setList] = useState<SomeDTO[]>([{ id: 1 }, { id: 2 }]);
+
+    const handleReverseClick = () => {
+      setList((st) => st.reverse());
+    };
+
+    return (
+    <>
+      <ul>
+        {list.map((item) => (
+          <li key={item.id}>{item.id}</li>
+        ))}
+      </ul>
+      <button onClick={handleReverseClick}>Reverse</button>
+    </>
+    );
+  }
+  `,
+    answer: `export default function Test() {
+    const [list, setList] = useState<SomeDTO[]>([{ id: 1 }, { id: 2 }]);
+
+    const handleReverseClick = () => {
+      setList((st) => [...st].reverse()); //it mutates the state
+    };
+
+    return (
+    <>
+      <ul>
+        {list.map((item) => (
+          <li key={item.id}>{item.id}</li>
+        ))}
+      </ul>
+      <button onClick={handleReverseClick}>Reverse</button>
+    </>
+    );
+  }`,
+    category: REACT,
+    level: 2,
+  },
 ];
 
 const quizTests: TQuiz[] = [
@@ -3919,7 +4071,7 @@ const quizTests: TQuiz[] = [
   },
 ];
 
-const quizNext: TQuiz[] = [
+export const quizNext: TQuiz[] = [
   {
     id: 401,
     question: `Create a product page "/car/3" for NextJs 12 and NextJS 13.
@@ -4007,7 +4159,7 @@ const quizNext: TQuiz[] = [
     level: 4,
   },
   {
-    id: 405,
+    id: 406,
     question: `How to add an Articles section and the latest comments sections on the home page.
     Both sections should be loaded separately.  Use Next 13+`,
     answer: `//@articles/page.tsx + loading.tsx
@@ -4033,6 +4185,101 @@ const quizNext: TQuiz[] = [
     }`,
     category: NEXT,
     level: 4,
+  },
+];
+
+const quizLeetCode: TQuiz[] = [
+  {
+    id: 701,
+    question: `Convert CSV text to array of objects.
+    Text: 
+    name,age,city
+    John,30,New York
+    
+    Anna,25,Berlin
+    Result: 
+    [
+      {name: 'John', age: 30, city: 'New York'},
+      {name: 'Anna', age: 25, city: 'Berlin'}
+    ]`,
+    answer: `
+    const parser = (text) => {
+      const lines = text.split('\\n');
+      const headers = lines[0].split(',');
+      const result = [];
+
+      for (let i = 1; i < lines.length; i++) {
+        if (lines[i] === '') continue;
+        const values = lines[i].split(',');
+        const obj = headers.reduce((obj, header, index) => {
+          obj[header] = values[index];
+          return obj;
+        }, {});
+        result.push(obj);
+        })
+
+        return result;
+    }`,
+    category: "LeetCode",
+    level: 1,
+  },
+  {
+    id: 702,
+    question: `You are given an array with numbers. 
+    Rearrange the values according to the following rules: 
+    Sort even numbers in increasing order, 
+    Odd numbers should stay on its places. 
+    For Example: 
+    const arr = [1,8,3,9,12,13,2,5,6] // [1,2,3,9,6,13,8,5,12]`,
+    answer: `
+    function rearrangeArray(arr) {
+    const evenNumbers = arr.filter(num => num % 2 === 0).sort((a, b) => a - b);
+    let evenIndex = 0;
+
+    return arr.map(num => {
+      if (num % 2 === 0) {
+        return evenNumbers[evenIndex++];
+      } else {
+        return num;
+      }
+    });
+    }
+    `,
+    category: "LeetCode",
+    level: 1,
+  },
+  {
+    id: 703,
+    question: `Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+    Example 1:  s = "anagram", t = "nagaram" // true
+    Example 2:  s = "rat", t = "car" // false`,
+    answer: `
+    function isAnagram(s, t) {
+    return s.split('').sort().join('') === t.split('').sort().join('');
+    }`,
+    category: "LeetCode",
+    level: 1,
+  },
+  {
+    id: 704,
+    question: `Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+    Example 1:  nums = [2,7,11,15], target = 9 // [0,1]
+    Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+    Example 2:  nums = [3,2,4], target = 6 // [1,2]`,
+    answer: `
+    function twoSum(nums, target) {
+    const hash = new Map();
+    for (let i = 0; i < nums.length; i++) {
+      const complement = target - nums[i];
+      if (hash.has(complement) && hash.get(complement) !== i) {
+        return [hash.get(complement), i];
+      }
+      hash.set(nums[i], i);
+    }
+    return [];
+    }`,
+    category: "LeetCode",
+    level: 1,
   },
 ];
 
@@ -4260,7 +4507,8 @@ export const quiz = [
   ...quizTs,
   ...quizReact,
   ...quizTests,
-  ...quizNext,
+  //...quizNext,
+  ...quizLeetCode,
   ...quizCSS,
   ...quizOther,
 ];

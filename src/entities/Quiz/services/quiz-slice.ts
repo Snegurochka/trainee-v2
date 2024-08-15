@@ -7,14 +7,12 @@ export const quizSlice = createSlice({
     index: 0,
     isToggled: false,
     isResultCard: false,
-    question: quiz[0],
+    currentQuestions: [],
     quiz,
   },
   reducers: {
-    nextQuestion: (state, action) => {
-      const nextIndex = action.payload;
-      state.index = nextIndex;
-      state.question = state.quiz[nextIndex];
+    nextQuestion: (state) => {
+      state.index += 1;
       state.isToggled = false;
     },
     setQuizByCategory: (state, action) => {
@@ -23,7 +21,6 @@ export const quizSlice = createSlice({
       state.quiz = quiz.filter((q) => q.category === name);
 
       state.index = 0;
-      state.question = state.quiz[0];
       state.isToggled = false;
     },
     toggleAnswer: (state) => {
@@ -32,8 +29,11 @@ export const quizSlice = createSlice({
     isResultCard: (state) => {
       state.isResultCard = !state.isResultCard;
     },
+    setCurrentQuestions: (state, action) => {
+      state.currentQuestions = action.payload;
+    }
   },
 });
 
-export const { nextQuestion, setQuizByCategory, toggleAnswer, isResultCard } = quizSlice.actions;
+export const { nextQuestion, setQuizByCategory, toggleAnswer, isResultCard, setCurrentQuestions } = quizSlice.actions;
 export default quizSlice.reducer;

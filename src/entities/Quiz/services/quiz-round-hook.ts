@@ -10,6 +10,8 @@ import { removeDuplicates } from "./quiz-utils";
 import { setResult } from "../../User/services/user-slice";
 import { QUIZ_PER_ROUND } from "./quiz-const";
 import { useAppDispatch } from "../../../shared/services/hooks/redux";
+import { updateXp } from "../../../features/Xp/services/xp-firebase";
+import { useChallenge } from "../../../features/Challenge";
 
 const getCompleted = (completedQuiz: number[], correctAnswers: number[]) => {
   const uniqueCompleted = removeDuplicates([
@@ -24,6 +26,8 @@ export const useQuizRound = () => {
   const correctAnswers = useSelector(selectCorrectAnswers);
   const total = useSelector(selectTotalAnswers);
 
+  const { updateLastCheckIn } = useChallenge();
+
   const dispatch = useAppDispatch();
 
   const endOfTheRound = useCallback(
@@ -35,13 +39,13 @@ export const useQuizRound = () => {
       dispatch(setResult({ completed, idDoc }));
 
       if (correctAnswers.length < 3) return;
+      updateXp(idDoc, correctAnswers.length);
+      updateLastCheckIn();
     },
     [dispatch, correctAnswers, idDoc]
   );
 
-  const isLastQuestion = useCallback(() => {
-    return total === QUIZ_PER_ROUND;
-  }, [total]);
+  const isLastQuestion = total === QUIZ_PER_ROUND;
 
   return { endOfTheRound, isLastQuestion };
 };

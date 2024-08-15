@@ -4,7 +4,10 @@ export type TUser = {
     email: string;
     name: string;
     level: number;
-    xp: number;
     completed: number[];
     token: string;
+};
+
+export interface IUserApi extends TUser {
+    xp: number;
 };

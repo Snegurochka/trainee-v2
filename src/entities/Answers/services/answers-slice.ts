@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     correctAnswers: [] as number[],
-    total: 0,
+    total: 1,
 }
 
 export const answersSlice = createSlice({
