@@ -1,6 +1,8 @@
+import { QuestionsList } from "../../entities/Questions/components/QuestionsList"
+
 const QuestionsPage = () => {
   return (
-    <div>QuestionsPage</div>
+    <div><QuestionsList /></div>
   )
 }
 

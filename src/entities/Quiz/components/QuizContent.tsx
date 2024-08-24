@@ -6,24 +6,35 @@ import { QuizCard } from "./QuizCard";
 import { QuizControls } from "./QuizControls";
 import { QuizResult } from "./QuizResult";
 import { Card } from "../../../shared/UI/Card/Card";
+import { Comments, selectIsOpened } from "../../../features/Comments";
 
 const Wrapper = styled(Card)`
-  margin: 24px auto;
-  max-width: 400px;
+  width: 600px;
   display: flex;
   flex-direction: column;
 `;
+
+const QuizContentWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  gap: 24px;
+`;
+
 export const QuizContent = () => {
   const isResult = useAppSelector(selectIsResultCard);
+  const isCommentsOpened = useAppSelector(selectIsOpened);
   if (isResult) {
     return <QuizResult />;
   }
 
   return (
-    <Wrapper gap={3}>
-      <QuizCard />
-      <QuizControls />
-      <AnswersCounter />
-    </Wrapper>
+    <QuizContentWrapper>
+      <Wrapper gap={3}>
+        <QuizCard />
+        <QuizControls />
+        <AnswersCounter />
+      </Wrapper>
+      {isCommentsOpened ? <Comments /> : null}
+    </QuizContentWrapper>
   );
 };

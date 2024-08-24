@@ -1,15 +1,5 @@
 import { NEXT, REACT, TESTS } from "./quiz-const";
-import { TQuiz } from "./quiz-type";
-
-const quizJs: TQuiz[] = [
-  {
-    id: 1,
-    question:
-      "What is the output of the following code? \n Boolean('0') === true",
-    answer: "true \n - Any non-empty string is true",
-    category: "JS",
-    level: 1,
-  },
+const quizJs = [
   {
     id: 2,
     question:
@@ -1228,9 +1218,58 @@ const quizJs: TQuiz[] = [
     category: "JS",
     level: 2,
   },
+  {
+    id: 94,
+    question: `create function pipe
+    const times = (y) => (x) => x*y; 
+    const result = pipe([times(2), times(3)]); 
+    console.log(result(2)); // 12`,
+    answer: `
+    const pipe = (fns) => (x) => fns.reduce((value, fn) => fn(value), x); //(2 * 2) * 3 = 12`,
+    category: "JS",
+    level: 2,
+  },
+  {
+    id: 95,
+    question: `create function myPromiseRace:
+    const myPromiseRace = (promises) => { }; 
+    const promise1 = new Promise((resolve, reject) => {
+      setTimeout(() => resolve(1), 1000);
+    });
+    const promise2 = new Promise((resolve, reject) => {
+      setTimeout(() => resolve(2), 2000);
+    });
+    const promise3 = new Promise((resolve, reject) => {
+      setTimeout(() => resolve(3), 3000);
+    });
+    const result  = myPromiseRace([promise1, promise2, promise3])`,
+    answer: `
+    const myPromiseRace = (promises) => {
+    return new Promise((resolve, reject) => {
+    promises.forEach(promise => {
+      promise.then(resolve).catch(reject);
+    });
+    });
+    };`,
+    category: "JS",
+    level: 2,
+  },
+  {
+    id: 96,
+    question: `Create a new user Admin, use User as prototype.
+    const User = {
+      name: "John",
+    };`,
+    answer: `
+    const Admin = Object.create(User);
+    Admin.role = "admin";
+    `,
+    category: "JS",
+    level: 2,
+  },
 ];
 
-const quizTs: TQuiz[] = [
+const quizTs = [
   {
     id: 101,
     question: `Write type for the function: \n
@@ -1904,7 +1943,7 @@ const quizTs: TQuiz[] = [
   },
 ];
 
-const quizReact: TQuiz[] = [
+const quizReact = [
   {
     id: 201,
     question: "Create a reducer to add an element (only case)",
@@ -2269,7 +2308,8 @@ const quizReact: TQuiz[] = [
   },
   {
     id: 224,
-    question: `Create a useFavorites hook. It should return an add function and a list of favorites ids. \n
+    question: `Create a useFavorites hook. It should return an add/remove function and a list of favorites ids. \n
+    All ids should be unique.
     Consider as an app with one user and no saving data on the server.
     Add this hook to the ProductList component`,
     answer: `export const useFavorites = (): {
@@ -3682,9 +3722,59 @@ const quizReact: TQuiz[] = [
     category: REACT,
     level: 2,
   },
+  {
+    id: 270,
+    question: `There is a React component to display an article consisting of various blocks (text, code, images).
+    state.article : [{ id: 1, type: 'code', text: 'code with tags'}, 
+    { id: 2, type: 'text', text: some code'}, 
+    { id: 3, type: 'code', text: 'code with tags 2'}].
+      
+    Make it better:
+    export const ArticlePage = ({ article }) => {
+    return (
+      <div>
+        {article.map((item) => {
+          if (item.type === 'text') {
+            return <p key={item.id}>{item.text}</p>;
+          } else if (item.type === 'code') {  
+            return <code key={item.id}>{item.text}</code>;
+          } else if (item.type === 'image') {
+            return <img key={item.id} src={item.text} alt=""/>
+          }
+          }
+        })}
+    )}
+    `,
+    answer: `export const ArticlePage = ({ article }) => {
+    const renderBlock = (block) => {
+    switch (block.type) {
+      case 'code':
+        return (
+          <code>
+            <Highlight language="javascript">{block.text}</Highlight>
+          </code>
+        );
+      case 'text':
+        return <p>{block.text}</p>;
+      default:
+        return null;
+    }
+  };
+    return (
+      <div className="article-container">
+      {article.map((block) => (
+        <div key={block.id}>
+          {renderBlock(block)}
+        </div>
+      ))}
+    </div>
+    )}`,
+    category: REACT,
+    level: 2,
+  },
 ];
 
-const quizTests: TQuiz[] = [
+const quizTests = [
   {
     id: 301,
     question: `Cover a component List with tests (2 or more) \n
@@ -4071,7 +4161,7 @@ const quizTests: TQuiz[] = [
   },
 ];
 
-export const quizNext: TQuiz[] = [
+export const quizNext = [
   {
     id: 401,
     question: `Create a product page "/car/3" for NextJs 12 and NextJS 13.
@@ -4188,7 +4278,7 @@ export const quizNext: TQuiz[] = [
   },
 ];
 
-const quizLeetCode: TQuiz[] = [
+const quizLeetCode = [
   {
     id: 701,
     question: `Convert CSV text to array of objects.
@@ -4281,9 +4371,53 @@ const quizLeetCode: TQuiz[] = [
     category: "LeetCode",
     level: 1,
   },
+  {
+    id: 704,
+    question: `Remove Duplicates from unsorted array.
+    Given an array arr of integers which may or may not contain duplicate elements. 
+    Your task is to remove duplicate elements.
+    Example 1:  [1, 2, 3, 1, 4, 2] // [1, 2, 3, 4]`,
+    answer: `
+    // [... new Set(arr)] // simple solution
+    function removeDuplicate(arr) {
+        const map = arr.reduce((acc, val) => {
+          if (!acc[val]) {
+            acc[val] = true;
+          }
+          return acc;
+        }, {});
+        return Object.keys(map);
+    }`,
+    category: "LeetCode",
+    level: 1,
+  },
+  {
+    id: 704,
+    question: `13. Roman to Integer. Convert a roman numeral to an integer.
+    Example 1:  s = "III" // 3
+    Example 2:  s = "LVIII" // 58
+    const map = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000};`,
+    answer: `
+    function romanToInt(s) {
+    const map = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000};
+    let result = 0;
+    for (let i = s.length - 1; s >= 0; s--) {
+    const currentValue = romanMap[s[i]];
+    const prevValue = romanMap[s[i + 1]];
+    if (prevValue !== undefined && prevValue > currentValue) {
+      result -= currentValue;
+    } else {
+      result += currentValue;
+    }
+    }
+    return result;
+    }`,
+    category: "LeetCode",
+    level: 1,
+  },
 ];
 
-const quizCSS: TQuiz[] = [
+const quizCSS = [
   {
     id: 801,
     question: `Convert this CSS to SCSS
@@ -4374,7 +4508,7 @@ const quizCSS: TQuiz[] = [
   },
 ];
 
-const quizOther: TQuiz[] = [
+const quizOther = [
   {
     id: 901,
     question: `Configure WebPack with different entry points`,

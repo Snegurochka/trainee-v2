@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { ProgressBar } from "./ProgressBar";
+import { CodeBox } from "./CodeBox";
 import { ThemeDecorator } from "../../services/storybook/ThemeDecorator";
 
 const meta = {
-  title: "UI/ProgressBar",
-  component: ProgressBar,
+  title: "UI/CodeBox",
+  component: CodeBox,
   parameters: {
     layout: "centered",
   },
@@ -12,13 +12,13 @@ const meta = {
   argTypes: {},
   args: {},
   decorators: [ThemeDecorator],
-} satisfies Meta<typeof ProgressBar>;
+} satisfies Meta<typeof CodeBox>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Base: Story = {
   args: {
-    value: 20,
+    children: "<h3>Test</h3>",
   },
 };

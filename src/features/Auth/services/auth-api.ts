@@ -4,15 +4,15 @@ import { TAuthForm } from "../components/AuthForm";
 import { setXp } from "../../Xp/services/xp-slice";
 import { fetchChallengeInfo } from "../../Challenge/services/challenge-slice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { ThunkConfig } from "../../../app/services/store";
 
-export const setApiAuth = createAsyncThunk(
+export const setApiAuth = createAsyncThunk<
+void,
+TAuthForm,
+ThunkConfig<string>
+>(
   "auth/setApiAuth",
-  async (payload: TAuthForm, thunkAPI: {
-    dispatch: any;
-    getState: any;
-    extra: any;
-    rejectWithValue: any;
-  }) => {
+  async (payload, thunkAPI) => {
     const { email, password } = payload;
     const user = await authUser(email, password);
     const userData = await getUserInfo(user.uid);

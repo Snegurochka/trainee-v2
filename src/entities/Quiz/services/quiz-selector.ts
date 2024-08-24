@@ -8,6 +8,7 @@ export const selectIsResultCard = (state: RootState) => state.quiz.isResultCard;
 export const selectCurrentQuestions = (state: RootState) => state.quiz.currentQuestions;
 export const selectIndex = (state: RootState) => state.quiz.index;
 export const selectQuestion = (state: RootState) => state.quiz.currentQuestions[state.quiz.index];
+export const selectCurrentQuestionId = (state: RootState) => state.quiz.currentQuestions[state.quiz.index].id;
 
 export const selectAvailableQuestions = createSelector(
     selectQuiz,

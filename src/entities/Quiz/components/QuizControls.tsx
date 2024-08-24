@@ -1,8 +1,9 @@
+import { memo } from "react";
 import { FlexBox } from "../../../shared/UI/Box/Box";
 import { Button } from "../../../shared/UI/Button/Button";
 import { useQuiz } from "../services/quiz-hook";
 
-export const QuizControls = () => {
+export const QuizControls = memo(() => {
   const { correctAnswerHandler, wrongAnswerHandler } = useQuiz();
   return (
     <FlexBox>
@@ -16,4 +17,4 @@ export const QuizControls = () => {
       </Button>
     </FlexBox>
   );
-};
+});

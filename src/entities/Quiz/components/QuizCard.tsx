@@ -1,8 +1,9 @@
-
 import styled from "styled-components";
 import { useQuiz } from "../services/quiz-hook";
+import { CodeBox } from "../../../shared/UI/Box/CodeBox";
+import { CommentsSideBarButton } from "../../../features/Comments/components/CommentsSideBarButton";
 
-const CardContentWrapper = styled.div`
+const CardContentWrapper = styled(CodeBox)`
   white-space: pre-line;
 `;
 
@@ -28,9 +29,10 @@ export const QuizCard = () => {
 
   return (
     <CardWrapper onClick={toggleAnswerHandler}>
-      <CardContentWrapper>
-        {!isToggled ? question.question : question.answer}
-      </CardContentWrapper>
+      <CommentsSideBarButton />
+        <CardContentWrapper>
+          {!isToggled ? question.question : question.answer}
+        </CardContentWrapper>
       <CardBottom>{question.category}</CardBottom>
     </CardWrapper>
   );

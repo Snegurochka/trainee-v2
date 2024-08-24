@@ -5,6 +5,7 @@ import { useAppDispatch } from "../../../shared/services/hooks/redux";
 import { setApiAuth } from "../services/auth-api";
 import { Card } from "../../../shared/UI/Card/Card";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 export type TAuthForm = {
   email: string;
@@ -13,6 +14,7 @@ export type TAuthForm = {
 
 export const AuthForm = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
     register,
@@ -21,7 +23,7 @@ export const AuthForm = () => {
   } = useForm<TAuthForm>();
 
   const submitHandler = (data: TAuthForm) => {
-    dispatch(setApiAuth(data));
+    dispatch(setApiAuth(data)).then(() => navigate("/"));
   };
   return (
     <Card $m={3} title={t("Login")}>
