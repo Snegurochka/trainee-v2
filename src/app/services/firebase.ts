@@ -16,6 +16,8 @@ const firebaseConfig = {
 // DB names
 export const UsersDB = "users";
 export const ChallengesDB = "challenges";
+export const QuestionsDB = "questions";
+export const CommentsDB = "comments";
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);

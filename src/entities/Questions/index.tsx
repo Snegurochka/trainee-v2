@@ -1,3 +1,3 @@
-import { questionsCount } from "./services/questions-selector";
+import questionsReducer from "./services/questions-slice";
 
-export { questionsCount };
+export { questionsReducer };

@@ -1,3 +1,3 @@
-import { quiz } from "../../Quiz/services/quiz-mock";
+import { RootState } from "../../../app/services/store";
 
-export const questionsCount = quiz.length
+export const selectQuestions = (state: RootState) => state.questions.questions;

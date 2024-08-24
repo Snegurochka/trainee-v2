@@ -17,6 +17,7 @@ import { Layout } from "../../../shared/UI/Layout/Layout";
 import { AuthPageAsync } from "../../../pages/AuthPage/AuthPage.async";
 import { QuizPageAsync } from "../../../pages/QuizPage/QuizPage.async";
 import { AccountPageAsync } from "../../../pages/AccountPage/AccountPage.async";
+import { RequireAuth } from "../../../features/Auth/components/RequireAuth";
 
 export const router = createBrowserRouter([
   {
@@ -25,8 +26,8 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: AUTH_PATH, element: <AuthPageAsync /> },
-      { path: QUIZ_PATH, element: <QuizPageAsync /> },
-      { path: ACCOUNT_PATH, element: <AccountPageAsync /> },
+      { path: QUIZ_PATH, element: <RequireAuth><QuizPageAsync /></RequireAuth> },
+      { path: ACCOUNT_PATH, element: <RequireAuth><AccountPageAsync /></RequireAuth> },
       { path: QUESTIONS_PATH, element: <QuestionsPage /> },
       {
         path: ABOUT_PATH,
