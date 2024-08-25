@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useQuiz } from "../services/quiz-hook";
 import { CodeBox } from "../../../shared/UI/Box/CodeBox";
-import { CommentsSideBarButton } from "../../../features/Comments/components/CommentsSideBarButton";
+import { CommentsSideBarButton } from "../../../features/Comments";
 
 const CardContentWrapper = styled(CodeBox)`
   white-space: pre-line;

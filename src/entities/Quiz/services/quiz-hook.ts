@@ -1,14 +1,14 @@
 import { useCallback } from "react";
 
-import {
-  pushCorrectAnswer,
-  incrementTotalAnswers,
-} from "../../Answers/services/answers-slice";
-import { selectCompleted } from "../../User/services/user-selectors";
+import { pushCorrectAnswer, incrementTotalAnswers } from "../../Answers";
+import { selectCompleted } from "../../User";
 import { useQuizRound } from "./quiz-round-hook";
 import { selectIsToggled, selectQuestion } from "./quiz-selector";
 import { nextQuestion, toggleAnswer } from "./quiz-slice";
-import { useAppDispatch, useAppSelector } from "../../../shared/services/hooks/redux";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../shared/services/hooks/redux";
 
 export const useQuiz = () => {
   const question = useAppSelector(selectQuestion);
@@ -25,7 +25,7 @@ export const useQuiz = () => {
       dispatch(nextQuestion());
       dispatch(incrementTotalAnswers());
     }
-  }, [dispatch,  completedQuiz, endOfTheRound, isLastQuestion]);
+  }, [dispatch, completedQuiz, endOfTheRound, isLastQuestion]);
 
   const handleAnswer = useCallback(
     (isCorrect: boolean) => {

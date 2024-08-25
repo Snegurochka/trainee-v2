@@ -13,6 +13,7 @@ ThunkConfig<string>
 >(
   "auth/setApiAuth",
   async (payload, thunkAPI) => {
+    console.log(payload);
     const { email, password } = payload;
     const user = await authUser(email, password);
     console.log(user);

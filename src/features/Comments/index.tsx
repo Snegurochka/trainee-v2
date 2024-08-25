@@ -1,5 +1,5 @@
-import commentsReducer from "./services/comments-slice";
+import commentsReducer, { selectIsOpened } from "./services/comments-slice";
 import { Comments } from "./components/Comments";
-import { selectIsOpened } from "./services/comments-slice";
+import { CommentsSideBarButton } from "./components/CommentsSideBarButton";
 
-export { commentsReducer, Comments, selectIsOpened }
+export { commentsReducer, Comments, selectIsOpened, CommentsSideBarButton }

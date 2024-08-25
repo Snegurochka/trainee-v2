@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import {
   selectCorrectAnswers,
   selectTotalAnswers,
-} from "../../Answers/services/answers-selector";
+} from "../../Answers";
 import { selectIdDoc } from "../../User/services/user-selectors";
 import { isResultCard } from "./quiz-slice";
 import { removeDuplicates } from "./quiz-utils";
-import { setResult } from "../../User/services/user-slice";
+import { setResult } from "../../User";
 import { QUIZ_PER_ROUND } from "./quiz-const";
 import { useAppDispatch } from "../../../shared/services/hooks/redux";
 import { updateXp } from "../../../features/Xp/services/xp-firebase";
