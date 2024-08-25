@@ -13,6 +13,8 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
+console.log('start', process.env.REACT_APP_FIREBASE_API_KEY);
+
 // DB names
 export const UsersDB = "users";
 export const ChallengesDB = "challenges";
