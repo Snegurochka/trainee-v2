@@ -15,6 +15,7 @@ ThunkConfig<string>
   async (payload, thunkAPI) => {
     const { email, password } = payload;
     const user = await authUser(email, password);
+    console.log(user);
     const userData = await getUserInfo(user.uid);
 
     if (!userData) {
